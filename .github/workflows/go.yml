@@ -34,5 +34,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: k6
-        path: ./app
+        path: ./app/${{ matrix.os }}
         retention-days: 5
