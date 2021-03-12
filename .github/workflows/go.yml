@@ -1,0 +1,38 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    strategy:
+      matrix:
+        go-version: [1.16.0]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+    - name: Install xk6
+      run: go get -u github.com/k6io/xk6/cmd/xk6
+
+    - name: creat folder
+      run: mkdir -p  ./app
+
+    - name: Build
+      working-directory: ./app
+      run: xk6 build v0.31.0 --with github.com/li-zhixin/xk6-influxdbv2
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: k6
+        path: ./app
+        retention-days: 5
