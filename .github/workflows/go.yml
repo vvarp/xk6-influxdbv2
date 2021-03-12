@@ -25,13 +25,13 @@ jobs:
 
     - name: creat folder
       run: mkdir -p  ./app
-      
-    - name: creat OS Name Space Folder
-      run: mkdir -p  ./{{ matrix.os }}
+    
+    - name: Temp
+      run: echo $GOOS $GOARCH
 
     - name: Build
-      working-directory: ./app/{{ matrix.os }}
-      run: xk6 build v0.31.0 --with github.com/li-zhixin/xk6-influxdbv2
+      working-directory: ./app
+      run: xk6 build v0.31.0 --with github.com/li-zhixin/xk6-influxdbv2 
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
