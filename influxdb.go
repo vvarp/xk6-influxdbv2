@@ -36,7 +36,8 @@ func (o *Output) Start() error {
 		return errors.New(" Dependent environment variables are not specified, " +
 			"please check if the environment variable exists.")
 	}
-	o.client = influxdb2.NewClient(influxDBv2Url, influxDBv2Token)
+	o.client = influxdb2.NewClientWithOptions(influxDBv2Url, influxDBv2Token, influxdb2.DefaultOptions().
+		SetHTTPRequestTimeout(60))
 	o.writeAPI = o.client.WriteAPI(influxDBv2Organization, influxDBv2Bucket)
 	return nil
 }
@@ -46,7 +47,6 @@ func (o *Output) AddMetricSamples(sampleContainers []stats.SampleContainer) {
 		for _, sample := range sc.GetSamples() {
 			point := Sample2Point(sample)
 			o.writeAPI.WritePoint(point)
-
 		}
 	}
 }
