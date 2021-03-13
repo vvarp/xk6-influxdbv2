@@ -24,15 +24,15 @@ jobs:
       run: go get -u github.com/k6io/xk6/cmd/xk6
 
     - name: creat folder
-      run: mkdir -p  ./app/${{ matrix.os }}
+      run: mkdir -p  ./${{ matrix.os }}/${{ matrix.os }}
 
     - name: Build
-      working-directory: ./app/${{ matrix.os }}
+      working-directory: ./${{ matrix.os }}/${{ matrix.os }}
       run: xk6 build v0.31.0 --with github.com/li-zhixin/xk6-influxdbv2 
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: k6
-        path: ./app/${{ matrix.os }}
+        path: ./${{ matrix.os }}
         retention-days: 5
