@@ -8,6 +8,7 @@ import (
 	"github.com/loadimpact/k6/output"
 	"github.com/loadimpact/k6/stats"
 	"os"
+	"time"
 )
 
 func init() {
@@ -58,6 +59,9 @@ func Sample2Point(sample stats.Sample) *write.Point {
 		fields[tagK] = tagV
 	}
 	fields["_value"] = sample.Value
+	if sample.Metric.Name == "http_req_duration" {
+		fields["_finished"] = sample.Time.Add(time.Duration(sample.Value * 1_000_000))
+	}
 	typeBytes, _ := sample.Metric.Type.MarshalText()
 	tags["type"] = string(typeBytes)
 	point := influxdb2.NewPoint(sample.Metric.Name, tags, fields, sample.Time)
