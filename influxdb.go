@@ -2,7 +2,6 @@ package influxdbv2
 
 import (
 	"errors"
-	"fmt"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
 	"github.com/influxdata/influxdb-client-go/v2/api/write"
@@ -60,7 +59,7 @@ func Sample2Point(sample stats.Sample) *write.Point {
 		fields[tagK] = tagV
 	}
 	fields["_value"] = sample.Value
-	fmt.Println(sample.Metric.Name)
+	fields["debug"] = sample.Metric.Name
 	if sample.Metric.Name == "http_req_duration" {
 		fields["_finished"] = sample.Time.Add(time.Duration(sample.Value * 1_000_000))
 	}
