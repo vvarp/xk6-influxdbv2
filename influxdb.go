@@ -59,7 +59,6 @@ func Sample2Point(sample stats.Sample) *write.Point {
 		fields[tagK] = tagV
 	}
 	fields["_value"] = sample.Value
-	fields["debug"] = sample.Metric.Name
 	if sample.Metric.Name == "http_req_duration" {
 		fields["_finished"] = sample.Time.Add(time.Duration(sample.Value * 1_000_000))
 	}
