@@ -1,4 +1,6 @@
-# xk6-influxdbv2
+# xk6-influxdbv2 
+
+[![Go](https://github.com/li-zhixin/xk6-influxdbv2/actions/workflows/go.yml/badge.svg)](https://github.com/li-zhixin/xk6-influxdbv2/actions/workflows/go.yml)
 
 This is a influxdb(v2) output library for [k6](https://github.com/loadimpact/k6),
 implemented as an extension using the [xk6](https://github.com/k6io/xk6) system.
