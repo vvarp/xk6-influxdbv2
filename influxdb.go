@@ -59,10 +59,6 @@ func Sample2Point(sample stats.Sample) *write.Point {
 		fields[tagK] = tagV
 	}
 	fields["_value"] = sample.Value
-	if sample.Metric.Name == "http_req_duration" {
-		loc, _ := time.LoadLocation("UTC")
-		fields["_finished"] = sample.Time.Add(time.Duration(sample.Value * 1_000_000)).In(loc).Format(time.RFC3339)
-	}
 	typeBytes, _ := sample.Metric.Type.MarshalText()
 	tags["type"] = string(typeBytes)
 	point := influxdb2.NewPoint(sample.Metric.Name, tags, fields, sample.Time)
