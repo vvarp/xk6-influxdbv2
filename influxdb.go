@@ -2,13 +2,13 @@ package influxdbv2
 
 import (
 	"errors"
+	"os"
+
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
 	"github.com/influxdata/influxdb-client-go/v2/api/write"
 	"github.com/loadimpact/k6/output"
 	"github.com/loadimpact/k6/stats"
-	"os"
-	"time"
 )
 
 func init() {
